@@ -11,7 +11,7 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from config import OWNER_ID
-from AloneXString import Alone
+from Alone import AloneX
 
 
 async def aexec(code, client, message):
@@ -28,19 +28,19 @@ async def edit_or_reply(msg: Message, **kwargs):
     await func(**{k: v for k, v in kwargs.items() if k in spec})
 
 
-@Alone.on_edited_message(
+@AloneX.on_edited_message(
     filters.command("eval")
     & filters.user(OWNER_ID)
     & ~filters.forwarded
     & ~filters.via_bot
 )
-@Alone.on_message(
+@AloneX.on_message(
     filters.command("eval")
     & filters.user(OWNER_ID)
     & ~filters.forwarded
     & ~filters.via_bot
 )
-async def executor(client: Alone, message: Message):
+async def executor(client: AloneX, message: Message):
     if len(message.command) < 2:
         return await edit_or_reply(message, text="<b>ᴡʜᴀᴛ ʏᴏᴜ ᴡᴀɴɴᴀ ᴇxᴇᴄᴜᴛᴇ ʙᴀʙʏ ?</b>")
     try:
@@ -113,13 +113,13 @@ async def executor(client: Alone, message: Message):
         await edit_or_reply(message, text=final_output, reply_markup=keyboard)
 
 
-@Alone.on_callback_query(filters.regex(r"runtime"))
+@AloneX.on_callback_query(filters.regex(r"runtime"))
 async def runtime_func_cq(_, cq):
     runtime = cq.data.split(None, 1)[1]
     await cq.answer(runtime, show_alert=True)
 
 
-@Alone.on_callback_query(filters.regex("forceclose"))
+@AloneX.on_callback_query(filters.regex("forceclose"))
 async def forceclose_command(_, CallbackQuery):
     callback_data = CallbackQuery.data.strip()
     callback_request = callback_data.split(None, 1)[1]
@@ -138,13 +138,13 @@ async def forceclose_command(_, CallbackQuery):
         return
 
 
-@Alone.on_edited_message(
+@AloneX.on_edited_message(
     filters.command("sh")
     & filters.user(OWNER_ID)
     & ~filters.forwarded
     & ~filters.via_bot
 )
-@Alone.on_message(
+@AloneX.on_message(
     filters.command("sh")
     & filters.user(OWNER_ID)
     & ~filters.forwarded
@@ -198,7 +198,7 @@ async def shellrunner(_, message: Message):
         if len(output) > 4096:
             with open("output.txt", "w+") as file:
                 file.write(output)
-            await Alone.send_document(
+            await AloneX.send_document(
                 message.chat.id,
                 "output.txt",
                 reply_to_message_id=message.id,

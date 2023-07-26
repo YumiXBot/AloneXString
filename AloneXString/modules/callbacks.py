@@ -1,12 +1,12 @@
 from pyrogram import filters
 from pyrogram.types import CallbackQuery
 
-from AloneXString import Alone
-from AloneXString.utils import gen_key
-from AloneXString.modules.gen import gen_session
+from Alone import AloneX
+from Alone.utils import gen_key
+from Alone.modules.gen import gen_session
 
 
-@Alone.on_callback_query(
+@AloneX.on_callback_query(
     filters.regex(pattern=r"^(gensession|pyrogram|pyrogram1|telethon)$")
 )
 async def cb_choose(_, cq: CallbackQuery):
