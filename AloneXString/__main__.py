@@ -3,7 +3,7 @@ import importlib
 
 from pyrogram import idle
 
-from Alone import LOGGER, AloneX
+from Alone import LOGGER
 from Alone.modules import ALL_MODULES
 
 
