@@ -1,7 +1,7 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from Alone import Alone
+from Alone import AloneX
 from Alone.utils import add_served_user, keyboard
 
 
